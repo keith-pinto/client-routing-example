@@ -4,4 +4,6 @@
                    "/abc" :abc
                    "/bac" :bac
                    "/cab" :cab
+                   "/login" :login
+                   "/error" :error
                    }])

@@ -11,6 +11,8 @@
             )
   (:import goog.History))
 
+(def hist (History.))
+
 ;inital state
 (def app-state
   (atom (merge {:dataChan (chan 1)} states/default-state)))
@@ -31,17 +33,23 @@
   (states/data k))
 
 (defn render-page [event]
-  (let [route (default-if-empty (.-token event) "/")
-        route-handler ((bidi/match-route routes/routes (str "/#" route)) :handler)
-        current-state (fetch-state route-handler)
-        ]
-    (.log js/console "current route: " route)
+  (try
+    (let [route (default-if-empty (.-token event) "/")
+          route-handler ((bidi/match-route routes/routes (str "/#" route)) :handler)
+          current-state (fetch-state route-handler)]
+      (.log js/console "current route: " route)
     (.log js/console "fetched state: " current-state)
-    (put! (@app-state :dataChan) current-state)
-    ))
+    (if (= (current-state :unauthorized) true) 
+      (do
+        (.log js/console "redirect to login")
+        (.setToken hist "/login")) 
+      (put! (@app-state :dataChan) current-state)))
+    (catch js/Error e
+      (.log js/console (.-stack e))
+      (.setToken hist "/error"))))
 
 ;; https://github.com/gf3/secretary#example-with-googhistory.
 ;; Listen on the Navigate event, to capture change in URL
-(let [h (History.)]
-  (goog.events/listen h EventType/NAVIGATE render-page)
-  (doto h (.setEnabled true)))
+(do
+  (goog.events/listen hist EventType/NAVIGATE render-page)
+  (doto hist (.setEnabled true)))

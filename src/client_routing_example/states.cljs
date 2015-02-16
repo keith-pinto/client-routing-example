@@ -16,12 +16,24 @@
                               :left :a
                               :main :c}))
 
-(def cab-state (assoc default-state 
-                    :display {:top :c
-                              :left :a
-                              :main :b}))
+;;response for failed authenticated route
+;;(because user hasn't logged in)
+(def cab-state {:unauthorized true})
+
+(def login-state (assoc default-state 
+                    :display {:top :splash-top
+                              :left :splash-left
+                              :main :login}))
+
+(def error-state (assoc default-state 
+                    :display {:top :splash-top
+                              :left :splash-left
+                              :main :error}))
 
 (def data {:default default-state
             :abc abc-state
             :bac bac-state
-            :cab cab-state})
+            :cab cab-state
+            :login login-state
+            :error error-state
+           })

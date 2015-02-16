@@ -13,11 +13,26 @@
     (render [_]
       (html [:h1 nil text]))))
 
+(defn nav [app owner]
+  (reify
+    om/IRender
+    (render [_]
+      (html [:div {}
+         [:a {:href "#/"} "home "]
+         [:a {:href "#/abc"} "abc "]
+         [:a {:href "#/bac"} "bac "]
+         [:a {:href "#/cab"} "cab "]
+         [:a {:href "#/some-route-that-doesnt-exist"} "invalid route "]
+         ]))))
+
 (defn component-map [app]
   {
    :a [splash app {:opts {:text "a"}}]
    :b [splash app {:opts {:text "b"}}]
    :c [splash app {:opts {:text "c"}}]
+   :nav [nav app]
+   :login [splash app {:opts {:text "login form"}}]
+   :error [splash app {:opts {:text "error occured"}}]
    :splash-main [splash app {:opts {:text "Splash main"}}]
    :splash-left [splash app {:opts {:text "Splash left"}}]
    :splash-top [splash app {:opts {:text "Splash top"}}]
@@ -49,6 +64,9 @@
     (render [_]
       (html [:div {}
              [:h1 {} (str (zipmap (keys app) (vals app)))]
+             [:div {:style {:text-align "center"
+                            :padding "5px"}}
+              (build-component app :nav)]
              [:div {:style {:text-align "center"
                             :padding "5px"}}
               (build-component app top)]
