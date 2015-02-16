@@ -1,12 +1,16 @@
 # client-routing-example
 
-FIXME: Write a one-line description of your library/project.
+Basic Client Side routing example using [bidi](https://github.com/juxt/bidi) and [Om](https://github.com/omcljs/om)
 
 ## Overview
 
-FIXME: Write a paragraph about the library/project and highlight its goals.
-
 ## Setup
+```
+lein cljsbuild auto
+Open the HTML file in the browser
+```
+
+Original setup notes:
 
 First-time Clojurescript developers, add the following to your bash .profile:
 
