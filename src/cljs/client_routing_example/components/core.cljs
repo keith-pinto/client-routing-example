@@ -1,9 +1,10 @@
-(ns client-routing-example.components
+(ns client-routing-example.components.core
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
             [sablono.core :as html :refer-macros [html]]
             [client-routing-example.states :as states]
             [cljs.core.async :refer [chan <!]]
+            [client-routing-example.components.login :as login]
             )
   (:require-macros  [cljs.core.async.macros :refer  [go-loop]]))
 
@@ -31,11 +32,11 @@
    :b [splash app {:opts {:text "b"}}]
    :c [splash app {:opts {:text "c"}}]
    :nav [nav app]
-   :login [splash app {:opts {:text "login form"}}]
+   :login [login/form app]
    :error [splash app {:opts {:text "error occured"}}]
    :splash-main [splash app {:opts {:text "Splash main"}}]
    :splash-left [splash app {:opts {:text "Splash left"}}]
-   :splash-top [splash app {:opts {:text "Splash top"}}]
+   :splash-top [splash app {:opts {:text "Splash top new"}}]
    :splash-right [splash app {:opts {:text "Splash right"}}]
    })
 
@@ -81,4 +82,6 @@
                             :float "left"
                             :padding "10px"
                             :align "center"}}
-               (build-component app main)]]))))
+               (build-component app main)]])
+      
+      )))

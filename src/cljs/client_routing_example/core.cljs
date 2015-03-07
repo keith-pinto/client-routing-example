@@ -4,7 +4,7 @@
             [bidi.bidi :as bidi]
             [client-routing-example.routes :as routes]
             [client-routing-example.states :as states]
-            [client-routing-example.components :as components]
+            [client-routing-example.components.core :as core-components]
             [goog.events :as events]
             [goog.history.EventType :as EventType]
             [cljs.core.async :refer [chan put! <!]]
@@ -18,7 +18,7 @@
   (atom (merge {:dataChan (chan 1)} states/default-state)))
 
 (om/root
- components/application
+ core-components/application
  app-state
  {:target (. js/document (getElementById "app"))})
 
