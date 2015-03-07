@@ -4,10 +4,9 @@ Basic Client Side routing example using [bidi](https://github.com/juxt/bidi) and
 
 ## Overview
 
-## Setup
+## Start the application
 ```
-lein cljsbuild auto
-Open the HTML file in the browser
+lein do cljsbuild once, run
 ```
 
 Original setup notes:
